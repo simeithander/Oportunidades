@@ -1,76 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Dependências da página
-import { Container, CustomInput } from "reactstrap";
+import { Container } from "reactstrap";
+import { CardInterface } from "../types";
 
 // Componentes personalizados
 import CustomCard from "./Components/CustomCard";
+import { getCards } from "./homeController";
 // Estilos personalizados
 import {
   CardContainer,
   GlobalStyle,
   Title,
-  SpaceCard,
   HeaderContainer,
+  Geolocation,
+  Switch,
+  OportunidadesButton,
 } from "./styles";
 
 const Home = () => {
+  const [location, setLocation] = useState<Boolean>(false);
+  const [latitude, setLatitude] = useState<Number>(0);
+  const [longiTude, setLongitude] = useState<Number>(0);
+  const [cards, loadCards] = useState<CardInterface[]>([]);
+
+  // Obtem os Card através do Controller
+  async function Cards() {
+    loadCards(await getCards());
+  }
+
+  // Verifica o estado dos Cardos
+  useEffect(() => {
+    Cards();
+  }, []);
+
+  // Verifica a localização
+  useEffect(() => {
+    if (location) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      });
+    }
+  }, [location]);
+
   return (
     <React.Fragment>
       <GlobalStyle />
       <Container>
         <HeaderContainer>
           <Title>Oportunidades em destaque</Title>
-          <CustomInput
-            type="switch"
-            id="exampleCustomSwitch"
-            name="customSwitch"
-          />
+          <Geolocation>
+            Geologalização Ativa
+            <Switch
+              type="switch"
+              id="exampleCustomSwitch"
+              name="customSwitch"
+              onChange={() => setLocation(location ? false : true)}
+            />
+          </Geolocation>
         </HeaderContainer>
         <CardContainer>
-          <CustomCard
-            buttonName="Participar"
-            title="vaga de voluntariado"
-            iconImage="LoveHands"
-            description="Arrecadação de alimentos para moradores de rua"
-            subDescriptionText="SP Invisível"
-            itemText="2-6"
-            subItemText="Horas Semana"
-            footerText="Natal, RN"
-          />
-          <SpaceCard></SpaceCard>
-          <CustomCard
-            buttonName="Doar"
-            title="doação de materiais"
-            iconImage="LoveBox"
-            description="Arrecadação de alimentos para moradores de rua"
-            subDescriptionText="SP Invisível"
-            itemText="36"
-            subItemText="Itens Disponíveis"
-            footerText="Natal, RN"
-          />
-          <SpaceCard></SpaceCard>
-          <CustomCard
-            buttonName="Contribuir"
-            title="campanha de arrecadação"
-            iconImage="MoneyIcon"
-            description="Arrecadação de alimentos para moradores de rua"
-            subDescriptionText="SP Invisível"
-            itemText="R$ 5.000"
-            subItemText="Valor Esperado"
-            footerText="Natal, RN"
-          />
-          <SpaceCard></SpaceCard>
-          <CustomCard
-            buttonName="Contribuir"
-            title="campanha de arrecadação"
-            iconImage="MoneyIcon"
-            description="Arrecadação de alimentos para moradores de rua"
-            subDescriptionText="SP Invisível"
-            itemText="R$ 5.000"
-            subItemText="Valor Esperado"
-            footerText="Natal, RN"
-          />
+          {cards.map((item: CardInterface) => (
+            <CustomCard
+              buttonName={item.buttonName}
+              title={item.title}
+              iconImage={item.iconImage}
+              description={item.description}
+              subDescriptionText={item.subDescriptionText}
+              itemText={item.itemText}
+              subItemText={item.subItemText}
+              footerText={item.footerText}
+            />
+          ))}
         </CardContainer>
+        <OportunidadesButton>Todas as Oportunidades</OportunidadesButton>
       </Container>
     </React.Fragment>
   );

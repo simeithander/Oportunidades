@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const CustomCardContainer = styled(Card)`
   width: 314px;
   height: 316px;
-  margin-bottom: 30px;
+  margin: 0 30px 30px 0;
   transition: box-shadow .3s;
 
   :hover{
@@ -85,6 +85,10 @@ export const CustomButton = styled(Button)`
   background-color: #21D170;
   border-radius: 5px;
   border: 0px;
+
+  :hover{
+    background-color: #0db859
+  }
 `
 
 export const Item = styled.div`
@@ -99,7 +103,7 @@ export const SubItem = styled.div`
   line-height: 10px;
   width: 57px;
   text-transform: uppercase;
-  color: #8798AD;
+  color: #50eb95;
   
 `
 
