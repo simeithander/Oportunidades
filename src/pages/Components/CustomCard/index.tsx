@@ -1,5 +1,9 @@
 import React from "react";
-
+// Icons
+import { ReactComponent as MoneyIcon } from "../../../assets/icons/money.svg";
+import { ReactComponent as LoveHands } from "../../../assets/icons/love-hands.svg";
+import { ReactComponent as LoveBox } from "../../../assets/icons/love-box.svg";
+// Componentes personalizados
 import {
   CustomCardContainer,
   CustomCardCardBody,
@@ -18,6 +22,7 @@ import {
   SubItem,
 } from "./styles";
 
+// Interface deste componente
 interface CustomCardInterface {
   title: string;
   iconImage: string;
@@ -29,6 +34,7 @@ interface CustomCardInterface {
   footerText: string;
 }
 
+// Corpo do componente
 const CustomCard: React.FC<CustomCardInterface> = ({
   title,
   description,
@@ -39,6 +45,11 @@ const CustomCard: React.FC<CustomCardInterface> = ({
   subItemText,
   footerText,
 }) => {
+  function selectIcon() {
+    if (iconImage === "MoneyIcon") return <MoneyIcon />;
+    else if (iconImage === "LoveHands") return <LoveHands />;
+    else if (iconImage === "LoveBox") return <LoveBox />;
+  }
   return (
     <CustomCardContainer>
       {/* Container geral do Card */}
@@ -50,7 +61,7 @@ const CustomCard: React.FC<CustomCardInterface> = ({
         {/* Descrição em destaque com o icone */}
         <Description>
           <Text>{description}</Text>
-          <Icon>{iconImage}</Icon>
+          <Icon>{selectIcon()}</Icon>
         </Description>
         {/* Nota abaixo da descrição principal */}
         <SubDescription>{subDescriptionText}</SubDescription>

@@ -4,7 +4,12 @@ import styled from 'styled-components'
 export const CustomCardContainer = styled(Card)`
   width: 314px;
   height: 316px;
-  filter: drop-shadow(0px 10px 30px rgba(13, 51, 32, 0.1));
+  margin-bottom: 30px;
+  transition: box-shadow .3s;
+
+  :hover{
+    filter: drop-shadow(0px 10px 30px rgba(13, 51, 32, 0.1));
+  }
 `
 
 export const CustomCardCardBody = styled(CardBody)`
@@ -48,6 +53,8 @@ export const Text = styled.div`
 
 export const Icon = styled.div`
   padding-right: 24px;
+  width: 48px;
+  height: 48px;
 
 `
 export const SubDescription = styled.div`

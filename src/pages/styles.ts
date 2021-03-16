@@ -8,8 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export const CardContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-wrap: wrap; 
 `
 
 export const SpaceCard = styled.span`
@@ -23,6 +22,14 @@ export const Title = styled.div`
   font-size: 24px;
   line-height: 32px;
   color: #274264;
+  
+`
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 50px;
   margin-bottom: 40px;
+
 `
